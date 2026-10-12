@@ -533,6 +533,11 @@
         }
 
         function resetQuizSetup(lessonId) {
+            // 【恢復顯示】把剛剛隱藏的導覽列、標題、大分頁選單全部顯示回來
+            document.querySelectorAll('.lesson-tabs').forEach(el => el.style.display = '');
+            const header = document.querySelector('header');
+            if (header) header.style.display = '';
+            
             document.getElementById(lessonId + '-quizFinalResult').style.display = 'none';
             document.getElementById(lessonId + '-quizActiveArea').style.display = 'none';
             document.getElementById(lessonId + '-quizSetupPanel').style.display = 'block';
@@ -548,6 +553,13 @@
 
         function startQuiz(lessonId) {
             getAudioContext(); // 預先解鎖音效權限
+
+            // 【最方便的隱藏方式】直接把畫面最上面的導覽列、標題、大分頁選單隱藏
+            document.querySelectorAll('.lesson-tabs').forEach(el => el.style.display = 'none');
+            const header = document.querySelector('header');
+            if (header) header.style.display = 'none';
+
+
             document.getElementById(lessonId + '-quizSetupPanel').style.display = 'none';
             document.getElementById(lessonId + '-quizActiveArea').style.display = 'block';
 

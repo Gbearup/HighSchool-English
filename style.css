@@ -486,6 +486,11 @@ tQuestion
         }
 
 
+        .quiz-mode-hide {
+    display: none !important;
+}
+
+
         .full-next-btn:hover {
             background: var(--btn-blue-hover);
         }
