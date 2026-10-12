@@ -182,7 +182,7 @@
             grid-template-columns: repeat(auto-fill, minmax(270px, 1fr));
             gap: 18px;
         }
-
+tQuestion
         .word-card {
             background: var(--card-bg);
             border-radius: 16px;
@@ -256,6 +256,12 @@
             max-width: 750px;
             margin: 0 auto;
         }
+
+
+
+
+
+
 
         .mode-header-title {
             font-size: 1.35rem;
@@ -469,7 +475,16 @@
             cursor: pointer;
             box-shadow: 0 4px 6px rgba(49, 130, 206, 0.2);
             margin-top: 15px;
+
+            
+            /* 讓手機版的測驗按鈕列或最下方按鈕固定在底部 */
+    /* position: sticky; */
+    position: relative; /* 確保不使用 fixed 亂飄 */
+    bottom: 15px;
+    z-index: 10;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
         }
+
 
         .full-next-btn:hover {
             background: var(--btn-blue-hover);
