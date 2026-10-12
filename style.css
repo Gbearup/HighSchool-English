@@ -84,6 +84,12 @@
             box-shadow: 0 4px 12px rgba(43, 88, 118, 0.3);
         }
 
+        .lesson0-btn {
+            padding: 6px 6px; 
+            font-size: 0.8rem;
+            border-radius: 8px;
+        }
+
         .lesson1-btn {
             background-color: #669eda;
             border: none;
