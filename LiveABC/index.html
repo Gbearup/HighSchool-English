@@ -1,0 +1,793 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LiveABC英文雜誌 單字複習與測驗</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        
+    </style>
+</head>
+<body>
+    <div class="container">
+
+         <div class="lesson-tabs">
+             <button class="lesson1-btn" onclick="location.href='../index.html'">📚回首頁</button>
+            <button class="lesson1-btn active" onclick="location.href='../TextBook/index.html'">📚 課本專區</button>
+            <button class="lesson1-btn" onclick="location.href='../7000/index.html'">📚 7000 單字專區</button>
+        </div>
+
+        
+        <header>
+            <h1>LiveABC英文雜誌 單字複習與測驗</h1>  
+            <!-- <p>英文課本、7000核心單字、LiveABC單字片語，互動式學習與測驗</p> -->
+        </header>
+
+        <!-- 大分頁列 -->
+        
+       
+        
+        <div class="lesson-tabs">
+            <button class="lesson-btn active" onclick="switchLesson('lesson1')">📚 9月份</button>
+            <button class="lesson-btn" onclick="switchLesson('lesson2')">📚 10月份</button>
+            <button class="lesson-btn" onclick="switchLesson('lesson3')">📚 11月份</button>
+            <button class="lesson-btn" onclick="switchLesson('review1')">📚 12月份</button>
+            <button class="lesson-btn" onclick="switchLesson('all')">🌟 總測驗</button>
+        </div>
+
+                   
+            <!-- 主頁 index.html 的程式碼範例 -->
+
+
+
+            
+        
+
+        <!-- ==================== 9月份內容容器 ==================== -->
+        <div id="lesson1-container" class="lesson-content active">
+            <div class="nav-tabs">
+                <button class="tab-btn active" onclick="switchTab('l1', 'list')">📖 單字列表</button>
+                <button class="tab-btn" onclick="switchTab('l1', 'quiz')">📝 開始測驗</button>
+            </div>
+            <div id="l1-list-tab" class="tab-content active">
+                <div class="controls">
+                    <input type="text" id="l1-searchInput" class="search-input" placeholder="搜尋9月份單字、KK音標、中文解釋..." onkeyup="filterWords('l1')">
+                </div>
+                <div class="word-grid" id="l1-wordGrid"></div>
+            </div>
+            <div id="l1-quiz-tab" class="tab-content">
+                <div class="quiz-outer-card">
+                    <div class="mode-header-title">🎯 9月份單字互動測驗</div>
+                    <div class="mode-header-desc">請選擇您想要的測驗模式與題數，點擊開始挑戰！</div>
+                    <div class="setup-panel" id="l1-quizSetupPanel">
+                        <div class="setup-group">
+                            <label>選擇測驗題型：</label>
+                            <div class="setup-options">
+                                <button class="setup-btn active" id="l1-typeChoiceBtn" onclick="setQuizType('l1', 'choice')">英選中 (看英選中)</button>
+                                <button class="setup-btn" id="l1-typeChineseToEnglishBtn" onclick="setQuizType('l1', 'chineseToEnglish')">中選英 (看中選英)</button>
+                                <button class="setup-btn" id="l1-typeSpellBtn" onclick="setQuizType('l1', 'spell')">手動拼字填空</button>
+                            </div>
+                        </div>
+                        <div class="setup-group">
+                            <label>選擇測驗題數：</label>
+                            <div class="setup-options">
+                                <button class="setup-btn active" id="l1-count10Btn" onclick="setQuizCount('l1', 10)">10 題</button>
+                                <button class="setup-btn" id="l1-countAllBtn" onclick="setQuizCount('l1', 'all')">全部題數</button>
+                            </div>
+                        </div>
+                        <button class="full-next-btn" onclick="startQuiz('l1')">🚀 開始作答</button>
+                    </div>
+                    <div id="l1-quizActiveArea" style="display: none;">
+                        <div class="sticky-score-bar">
+                            <span id="l1-quizProgress" style="font-weight: bold; color: #4a5568;">進度：0 / 10</span>
+                            <span id="l1-quizScore" style="font-weight: bold; color: var(--btn-blue); font-size: 1.1rem;">得分：0 分</span>
+                        </div>
+                        <div class="quiz-inner-box">
+                            <div class="question-label" id="l1-questionText">載入中...</div>
+                            <div id="l1-quizAnswersArea" class="options-group"></div>
+                            <div class="result-banner" id="l1-quizBanner"></div>
+                        </div>
+                        <button class="full-next-btn" id="l1-quizNextBtn" onclick="nextQuestion('l1')" style="display: none;">下一題 ➔</button>
+                    </div>
+                    <div id="l1-quizFinalResult" style="display: none; text-align: center; padding: 25px; background: #edf2f7; border-radius: 12px;">
+                        <h2 style="margin-top: 0; color: #2d3748;">🎉 9月份測驗完成！</h2>
+                        <p style="font-size: 1.1rem; color: #4a5568;">您的最終得分：</p>
+                        <div id="l1-finalScoreDisplay" style="font-size: 3rem; font-weight: bold; color: var(--btn-blue); margin: 10px 0 20px 0;">0 / 100</div>
+                        <div id="l1-wrongReviewContainer"></div>
+                        <button class="full-next-btn" onclick="resetQuizSetup('l1')" style="max-width: 240px; margin: 20px auto 0 auto;">🔄 重新設定並再試一次</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ==================== 10月份內容容器 ==================== -->
+        <div id="lesson2-container" class="lesson-content">
+            <div class="nav-tabs">
+                <button class="tab-btn active" onclick="switchTab('l2', 'list')">📖 單字列表</button>
+                <button class="tab-btn" onclick="switchTab('l2', 'quiz')">📝 開始測驗</button>
+            </div>
+            <div id="l2-list-tab" class="tab-content active">
+                <div class="controls">
+                    <input type="text" id="l2-searchInput" class="search-input" placeholder="搜尋10月份單字、KK音標、中文解釋..." onkeyup="filterWords('l2')">
+                </div>
+                <div class="word-grid" id="l2-wordGrid"></div>
+            </div>
+            <div id="l2-quiz-tab" class="tab-content">
+                <div class="quiz-outer-card">
+                    <div class="mode-header-title">🎯 10月份單字互動測驗</div>
+                    <div class="mode-header-desc">請選擇您想要的測驗模式與題數，點擊開始挑戰！</div>
+                    <div class="setup-panel" id="l2-quizSetupPanel">
+                        <div class="setup-group">
+                            <label>選擇測驗題型：</label>
+                            <div class="setup-options">
+                                <button class="setup-btn active" id="l2-typeChoiceBtn" onclick="setQuizType('l2', 'choice')">英選中 (看英選中)</button>
+                                <button class="setup-btn" id="l2-typeChineseToEnglishBtn" onclick="setQuizType('l2', 'chineseToEnglish')">中選英 (看中選英)</button>
+                                <button class="setup-btn" id="l2-typeSpellBtn" onclick="setQuizType('l2', 'spell')">手動拼字填空</button>
+                            </div>
+                        </div>
+                        <div class="setup-group">
+                            <label>選擇測驗題數：</label>
+                            <div class="setup-options">
+                                <button class="setup-btn active" id="l2-count10Btn" onclick="setQuizCount('l2', 10)">10 題</button>
+                                <button class="setup-btn" id="l2-countAllBtn" onclick="setQuizCount('l2', 'all')">全部題數</button>
+                            </div>
+                        </div>
+                        <button class="full-next-btn" onclick="startQuiz('l2')">🚀 開始作答</button>
+                    </div>
+                    <div id="l2-quizActiveArea" style="display: none;">
+                        <div class="sticky-score-bar">
+                            <span id="l2-quizProgress" style="font-weight: bold; color: #4a5568;">進度：0 / 10</span>
+                            <span id="l2-quizScore" style="font-weight: bold; color: var(--btn-blue); font-size: 1.1rem;">得分：0 分</span>
+                        </div>
+                        <div class="quiz-inner-box">
+                            <div class="question-label" id="l2-questionText">載入中...</div>
+                            <div id="l2-quizAnswersArea" class="options-group"></div>
+                            <div class="result-banner" id="l2-quizBanner"></div>
+                        </div>
+                        <button class="full-next-btn" id="l2-quizNextBtn" onclick="nextQuestion('l2')" style="display: none;">下一題 ➔</button>
+                    </div>
+                    <div id="l2-quizFinalResult" style="display: none; text-align: center; padding: 25px; background: #edf2f7; border-radius: 12px;">
+                        <h2 style="margin-top: 0; color: #2d3748;">🎉 10月份測驗完成！</h2>
+                        <p style="font-size: 1.1rem; color: #4a5568;">您的最終得分：</p>
+                        <div id="l2-finalScoreDisplay" style="font-size: 3rem; font-weight: bold; color: var(--btn-blue); margin: 10px 0 20px 0;">0 / 100</div>
+                        <div id="l2-wrongReviewContainer"></div>
+                        <button class="full-next-btn" onclick="resetQuizSetup('l2')" style="max-width: 240px; margin: 20px auto 0 auto;">🔄 重新設定並再試一次</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ==================== 11月份內容容器 ==================== -->
+        <div id="lesson3-container" class="lesson-content">
+            <div class="nav-tabs">
+                <button class="tab-btn active" onclick="switchTab('l3', 'list')">📖 單字列表</button>
+                <button class="tab-btn" onclick="switchTab('l3', 'quiz')">📝 開始測驗</button>
+            </div>
+            <div id="l3-list-tab" class="tab-content active">
+                <div class="controls">
+                    <input type="text" id="l3-searchInput" class="search-input" placeholder="搜尋11月份單字、KK音標、中文解釋..." onkeyup="filterWords('l3')">
+                </div>
+                <div class="word-grid" id="l3-wordGrid"></div>
+            </div>
+            <div id="l3-quiz-tab" class="tab-content">
+                <div class="quiz-outer-card">
+                    <div class="mode-header-title">🎯 12月單字互動測驗</div>
+                    <div class="mode-header-desc">請選擇您想要的測驗模式與題數，點擊開始挑戰！</div>
+                    <div class="setup-panel" id="l3-quizSetupPanel">
+                        <div class="setup-group">
+                            <label>選擇測驗題型：</label>
+                            <div class="setup-options">
+                                <button class="setup-btn active" id="l3-typeChoiceBtn" onclick="setQuizType('l3', 'choice')">英選中 (看英選中)</button>
+                                <button class="setup-btn" id="l3-typeChineseToEnglishBtn" onclick="setQuizType('l3', 'chineseToEnglish')">中選英 (看中選英)</button>
+                                <button class="setup-btn" id="l3-typeSpellBtn" onclick="setQuizType('l3', 'spell')">手動拼字填空</button>
+                            </div>
+                        </div>
+                        <div class="setup-group">
+                            <label>選擇測驗題數：</label>
+                            <div class="setup-options">
+                                <button class="setup-btn active" id="l3-count10Btn" onclick="setQuizCount('l3', 10)">10 題</button>
+                                <button class="setup-btn" id="l3-countAllBtn" onclick="setQuizCount('l3', 'all')">全部題數</button>
+                            </div>
+                        </div>
+                        <button class="full-next-btn" onclick="startQuiz('l3')">🚀 開始作答</button>
+                    </div>
+                    <div id="l3-quizActiveArea" style="display: none;">
+                        <div class="sticky-score-bar">
+                            <span id="l3-quizProgress" style="font-weight: bold; color: #4a5568;">進度：0 / 10</span>
+                            <span id="l3-quizScore" style="font-weight: bold; color: var(--btn-blue); font-size: 1.1rem;">得分：0 分</span>
+                        </div>
+                        <div class="quiz-inner-box">
+                            <div class="question-label" id="l3-questionText">載入中...</div>
+                            <div id="l3-quizAnswersArea" class="options-group"></div>
+                            <div class="result-banner" id="l3-quizBanner"></div>
+                        </div>
+                        <button class="full-next-btn" id="l3-quizNextBtn" onclick="nextQuestion('l3')" style="display: none;">下一題 ➔</button>
+                    </div>
+                    <div id="l3-quizFinalResult" style="display: none; text-align: center; padding: 25px; background: #edf2f7; border-radius: 12px;">
+                        <h2 style="margin-top: 0; color: #2d3748;">🎉 11月份測驗完成！</h2>
+                        <p style="font-size: 1.1rem; color: #4a5568;">您的最終得分：</p>
+                        <div id="l3-finalScoreDisplay" style="font-size: 3rem; font-weight: bold; color: var(--btn-blue); margin: 10px 0 20px 0;">0 / 100</div>
+                        <div id="l3-wrongReviewContainer"></div>
+                        <button class="full-next-btn" onclick="resetQuizSetup('l3')" style="max-width: 240px; margin: 20px auto 0 auto;">🔄 重新設定並再試一次</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ==================== Review 1 內容容器 ==================== -->
+        <div id="review1-container" class="lesson-content">
+            <div class="nav-tabs">
+                <button class="tab-btn active" onclick="switchTab('rev1', 'list')">📖 單字列表</button>
+                <button class="tab-btn" onclick="switchTab('rev1', 'quiz')">📝 開始測驗</button>
+            </div>
+            <div id="rev1-list-tab" class="tab-content active">
+                <div class="controls">
+                    <input type="text" id="rev1-searchInput" class="search-input" placeholder="搜尋 Review 1 單字、片語、KK音標、中文解釋..." onkeyup="filterWords('rev1')">
+                </div>
+                <div class="word-grid" id="rev1-wordGrid"></div>
+            </div>
+            <div id="rev1-quiz-tab" class="tab-content">
+                <div class="quiz-outer-card">
+                    <div class="mode-header-title">🎯 Review 1 單字片語互動測驗</div>
+                    <div class="mode-header-desc">請選擇您想要的測驗模式與題數，點擊開始挑戰！</div>
+                    <div class="setup-panel" id="rev1-quizSetupPanel">
+                        <div class="setup-group">
+                            <label>選擇測驗題型：</label>
+                            <div class="setup-options">
+                                <button class="setup-btn active" id="rev1-typeChoiceBtn" onclick="setQuizType('rev1', 'choice')">英選中 (看英選中)</button>
+                                <button class="setup-btn" id="rev1-typeChineseToEnglishBtn" onclick="setQuizType('rev1', 'chineseToEnglish')">中選英 (看中選英)</button>
+                                <button class="setup-btn" id="rev1-typeSpellBtn" onclick="setQuizType('rev1', 'spell')">手動拼字填空</button>
+                            </div>
+                        </div>
+                        <div class="setup-group">
+                            <label>選擇測驗題數：</label>
+                            <div class="setup-options">
+                                <button class="setup-btn active" id="rev1-count10Btn" onclick="setQuizCount('rev1', 10)">10 題</button>
+                                <button class="setup-btn" id="rev1-countAllBtn" onclick="setQuizCount('rev1', 'all')">全部題數</button>
+                            </div>
+                        </div>
+                        <button class="full-next-btn" onclick="startQuiz('rev1')">🚀 開始作答</button>
+                    </div>
+                    <div id="rev1-quizActiveArea" style="display: none;">
+                        <div class="sticky-score-bar">
+                            <span id="rev1-quizProgress" style="font-weight: bold; color: #4a5568;">進度：0 / 10</span>
+                            <span id="rev1-quizScore" style="font-weight: bold; color: var(--btn-blue); font-size: 1.1rem;">得分：0 分</span>
+                        </div>
+                        <div class="quiz-inner-box">
+                            <div class="question-label" id="rev1-questionText">載入中...</div>
+                            <div id="rev1-quizAnswersArea" class="options-group"></div>
+                            <div class="result-banner" id="rev1-quizBanner"></div>
+                        </div>
+                        <button class="full-next-btn" id="rev1-quizNextBtn" onclick="nextQuestion('rev1')" style="display: none;">下一題 ➔</button>
+                    </div>
+                    <div id="rev1-quizFinalResult" style="display: none; text-align: center; padding: 25px; background: #edf2f7; border-radius: 12px;">
+                        <h2 style="margin-top: 0; color: #2d3748;">🎉 Review 1 測驗完成！</h2>
+                        <p style="font-size: 1.1rem; color: #4a5568;">您的最終得分：</p>
+                        <div id="rev1-finalScoreDisplay" style="font-size: 3rem; font-weight: bold; color: var(--btn-blue); margin: 10px 0 20px 0;">0 / 100</div>
+                        <div id="rev1-wrongReviewContainer"></div>
+                        <button class="full-next-btn" onclick="resetQuizSetup('rev1')" style="max-width: 240px; margin: 20px auto 0 auto;">🔄 重新設定並再試一次</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ==================== 總測驗 (All Lessons) 內容容器 ==================== -->
+        <div id="all-container" class="lesson-content">
+            <div class="nav-tabs">
+                <button class="tab-btn active" onclick="switchTab('all', 'list')">📖 全部單字總覽</button>
+                <button class="tab-btn" onclick="switchTab('all', 'quiz')">📝 開始總測驗</button>
+            </div>
+            <div id="all-list-tab" class="tab-content active">
+                <div class="controls">
+                    <input type="text" id="all-searchInput" class="search-input" placeholder="搜尋所有課程單字、片語、KK音標、中文解釋..." onkeyup="filterWords('all')">
+                </div>
+                <div class="word-grid" id="all-wordGrid"></div>
+            </div>
+            <div id="all-quiz-tab" class="tab-content">
+                <div class="quiz-outer-card">
+                    <div class="mode-header-title">🌟 總測驗（涵蓋全部單字與片語）</div>
+                    <div class="mode-header-desc">請選擇您想要的測驗模式與題數，挑戰跨課綜合單字大考驗！</div>
+                    <div class="setup-panel" id="all-quizSetupPanel">
+                        <div class="setup-group">
+                            <label>選擇測驗題型：</label>
+                            <div class="setup-options">
+                                <button class="setup-btn active" id="all-typeChoiceBtn" onclick="setQuizType('all', 'choice')">英選中 (看英選中)</button>
+                                <button class="setup-btn" id="all-typeChineseToEnglishBtn" onclick="setQuizType('all', 'chineseToEnglish')">中選英 (看中選英)</button>
+                                <button class="setup-btn" id="all-typeSpellBtn" onclick="setQuizType('all', 'spell')">手動拼字填空</button>
+                            </div>
+                        </div>
+                        <div class="setup-group">
+                            <label>選擇測驗題數：</label>
+                            <div class="setup-options">
+                                <button class="setup-btn active" id="all-count10Btn" onclick="setQuizCount('all', 10)">10 題</button>
+                                <button class="setup-btn" id="all-count20Btn" onclick="setQuizCount('all', 20)">20 題</button>
+                                <button class="setup-btn" id="all-countAllBtn" onclick="setQuizCount('all', 'all')">全部題數</button>
+                            </div>
+                        </div>
+                        <button class="full-next-btn" onclick="startQuiz('all')">🚀 開始總測驗</button>
+                    </div>
+                    <div id="all-quizActiveArea" style="display: none;">
+                        <div class="sticky-score-bar">
+                            <span id="all-quizProgress" style="font-weight: bold; color: #4a5568;">進度：0 / 10</span>
+                            <span id="all-quizScore" style="font-weight: bold; color: var(--btn-blue); font-size: 1.1rem;">得分：0 分</span>
+                        </div>
+                        <div class="quiz-inner-box">
+                            <div class="question-label" id="all-questionText">載入中...</div>
+                            <div id="all-quizAnswersArea" class="options-group"></div>
+                            <div class="result-banner" id="all-quizBanner"></div>
+                        </div>
+                        <button class="full-next-btn" id="all-quizNextBtn" onclick="nextQuestion('all')" style="display: none;">下一題 ➔</button>
+                    </div>
+                    <div id="all-quizFinalResult" style="display: none; text-align: center; padding: 25px; background: #edf2f7; border-radius: 12px;">
+                        <h2 style="margin-top: 0; color: #2d3748;">🎉 總測驗完成！</h2>
+                        <p style="font-size: 1.1rem; color: #4a5568;">您的最終得分：</p>
+                        <div id="all-finalScoreDisplay" style="font-size: 3rem; font-weight: bold; color: var(--btn-blue); margin: 10px 0 20px 0;">0 / 100</div>
+                        <div id="all-wrongReviewContainer"></div>
+                        <button class="full-next-btn" onclick="resetQuizSetup('all')" style="max-width: 240px; margin: 20px auto 0 auto;">🔄 重新設定並再試一次</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+
+     <script src="liveABC.js"></script>
+
+    <script>
+       
+
+        /* --- Web Audio API 提示音效產生器 --- */
+        let audioCtx = null;
+        function getAudioContext() {
+            if (!audioCtx) {
+                audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+            }
+            if (audioCtx.state === 'suspended') {
+                audioCtx.resume();
+            }
+            return audioCtx;
+        }
+
+        // 答對音效：輕快上揚的雙音「叮咚」
+        function playDingDongSound() {
+            try {
+                const ctx = getAudioContext();
+                const now = ctx.currentTime;
+                
+                const osc1 = ctx.createOscillator();
+                const gain1 = ctx.createGain();
+                osc1.type = 'sine';
+                osc1.frequency.setValueAtTime(523.25, now);
+                gain1.gain.setValueAtTime(0.3, now);
+                gain1.gain.exponentialRampToValueAtTime(0.001, now + 0.2);
+                osc1.connect(gain1);
+                gain1.connect(ctx.destination);
+                osc1.start(now);
+                osc1.stop(now + 0.2);
+
+                const osc2 = ctx.createOscillator();
+                const gain2 = ctx.createGain();
+                osc2.type = 'sine';
+                osc2.frequency.setValueAtTime(659.25, now + 0.12);
+                gain2.gain.setValueAtTime(0.3, now + 0.12);
+                gain2.gain.exponentialRampToValueAtTime(0.001, now + 0.35);
+                osc2.connect(gain2);
+                gain2.connect(ctx.destination);
+                osc2.start(now + 0.12);
+                osc2.stop(now + 0.35);
+            } catch (e) {
+                console.log("Audio not supported or blocked");
+            }
+        }
+
+        // 答錯音效：低沉下行的雙音「喔喔」
+        function playWrongSound() {
+            try {
+                const ctx = getAudioContext();
+                const now = ctx.currentTime;
+
+                const osc1 = ctx.createOscillator();
+                const gain1 = ctx.createGain();
+                osc1.type = 'sawtooth';
+                osc1.frequency.setValueAtTime(180, now);
+                osc1.frequency.exponentialRampToValueAtTime(140, now + 0.18);
+                gain1.gain.setValueAtTime(0.2, now);
+                gain1.gain.exponentialRampToValueAtTime(0.001, now + 0.18);
+                osc1.connect(gain1);
+                gain1.connect(ctx.destination);
+                osc1.start(now);
+                osc1.stop(now + 0.18);
+
+                const osc2 = ctx.createOscillator();
+                const gain2 = ctx.createGain();
+                osc2.type = 'sawtooth';
+                osc2.frequency.setValueAtTime(130, now + 0.18);
+                osc2.frequency.exponentialRampToValueAtTime(100, now + 0.38);
+                gain2.gain.setValueAtTime(0.2, now + 0.18);
+                gain2.gain.exponentialRampToValueAtTime(0.001, now + 0.38);
+                osc2.connect(gain2);
+                gain2.connect(ctx.destination);
+                osc2.start(now + 0.18);
+                osc2.stop(now + 0.38);
+            } catch (e) {
+                console.log("Audio not supported or blocked");
+            }
+        }
+
+        // 語音播放
+        function speak(text) {
+            if ('speechSynthesis' in window) {
+                window.speechSynthesis.cancel();
+                const utterance = new SpeechSynthesisUtterance(text);
+                utterance.lang = 'en-US';
+                utterance.rate = 0.9;
+                window.speechSynthesis.speak(utterance);
+            } else {
+                alert('您的瀏覽器不支援語音播放功能。');
+            }
+        }
+
+        // 渲染單字卡
+        function renderWords(lessonId, words) {
+            const grid = document.getElementById(lessonId + '-wordGrid');
+            if (!grid) return;
+            grid.innerHTML = '';
+            words.forEach(item => {
+                const card = document.createElement('div');
+                card.className = 'word-card';
+                card.innerHTML = `
+                    <div>
+                        <div class="word-header">
+                            <div>
+                                <span class="word-title">${item.vocab}</span>
+                                <span style="font-size:0.85rem; color:var(--text-sub); margin-left:6px;">${item.kk || ''}</span>
+                            </div>
+                            <button class="speech-btn" onclick="speak('${item.vocab}')" title="朗讀">🔊</button>
+                        </div>
+                        <div class="word-def">${item.definition}</div>
+                    </div>
+                    ${item.extension ? `<div class="word-ext">💡 ${item.extension}</div>` : ''}
+                `;
+                grid.appendChild(card);
+            });
+        }
+
+        // 搜尋過濾
+        function filterWords(lessonId) {
+            const query = document.getElementById(lessonId + '-searchInput').value.toLowerCase();
+            const data = (lessonId === 'l1') ? magazine9WordsData : (lessonId === 'l2' ? lesson2Data : (lessonId === 'l3' ? lesson3Data : (lessonId === 'rev1' ? review1Data : allData)));
+            const filtered = data.filter(item => 
+                item.vocab.toLowerCase().includes(query) || 
+                (item.kk && item.kk.toLowerCase().includes(query)) ||
+                item.definition.toLowerCase().includes(query) ||
+                (item.extension && item.extension.toLowerCase().includes(query))
+            );
+            renderWords(lessonId, filtered);
+        }
+
+        // 大分頁切換
+        function switchLesson(lessonName) {
+            document.querySelectorAll('.lesson-btn').forEach(btn => btn.classList.remove('active'));
+            document.querySelectorAll('.lesson-content').forEach(content => content.classList.remove('active'));
+
+            if (lessonName === 'lesson1') {
+                document.querySelectorAll('.lesson-btn')[0].classList.add('active');
+                document.getElementById('lesson1-container').classList.add('active');
+            } else if (lessonName === 'lesson2') {
+                document.querySelectorAll('.lesson-btn')[1].classList.add('active');
+                document.getElementById('lesson2-container').classList.add('active');
+            } else if (lessonName === 'lesson3') {
+                document.querySelectorAll('.lesson-btn')[2].classList.add('active');
+                document.getElementById('lesson3-container').classList.add('active');
+            } else if (lessonName === 'review1') {
+                document.querySelectorAll('.lesson-btn')[3].classList.add('active');
+                document.getElementById('review1-container').classList.add('active');
+            } else {
+                document.querySelectorAll('.lesson-btn')[4].classList.add('active');
+                document.getElementById('all-container').classList.add('active');
+            }
+        }
+
+        // 小分頁切換
+        function switchTab(lessonId, tabName) {
+            const containerId = lessonId === 'l1' ? 'lesson1-container' : (lessonId === 'l2' ? 'lesson2-container' : (lessonId === 'l3' ? 'lesson3-container' : (lessonId === 'rev1' ? 'review1-container' : 'all-container')));
+            const container = document.getElementById(containerId);
+            container.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
+            container.querySelectorAll('.tab-content').forEach(content => content.classList.remove('active'));
+            
+            if (tabName === 'list') {
+                container.querySelectorAll('.tab-btn')[0].classList.add('active');
+                document.getElementById(lessonId + '-list-tab').classList.add('active');
+            } else {
+                container.querySelectorAll('.tab-btn')[1].classList.add('active');
+                document.getElementById(lessonId + '-quiz-tab').classList.add('active');
+            }
+        }
+
+        /* --- 測驗設定與執行狀態 --- */
+        const quizState = {
+            l1: { type: 'choice', count: 10, list: [], index: 0, score: 0, wrongItems: [], isAnswered: false },
+            l2: { type: 'choice', count: 10, list: [], index: 0, score: 0, wrongItems: [], isAnswered: false },
+            l3: { type: 'choice', count: 10, list: [], index: 0, score: 0, wrongItems: [], isAnswered: false },
+            rev1: { type: 'choice', count: 10, list: [], index: 0, score: 0, wrongItems: [], isAnswered: false },
+            all: { type: 'choice', count: 10, list: [], index: 0, score: 0, wrongItems: [], isAnswered: false }
+        };
+
+        function setQuizType(lessonId, type) {
+            quizState[lessonId].type = type;
+            document.getElementById(lessonId + '-typeChoiceBtn').classList.toggle('active', type === 'choice');
+            document.getElementById(lessonId + '-typeChineseToEnglishBtn').classList.toggle('active', type === 'chineseToEnglish');
+            document.getElementById(lessonId + '-typeSpellBtn').classList.toggle('active', type === 'spell');
+        }
+
+        function setQuizCount(lessonId, count) {
+            quizState[lessonId].count = count;
+            document.getElementById(lessonId + '-count10Btn').classList.toggle('active', count === 10);
+            const count20Btn = document.getElementById(lessonId + '-count20Btn');
+            if (count20Btn) count20Btn.classList.toggle('active', count === 20);
+            const allBtn = document.getElementById(lessonId + '-countAllBtn');
+            if (allBtn) allBtn.classList.toggle('active', count === 'all');
+        }
+
+        function resetQuizSetup(lessonId) {
+            document.getElementById(lessonId + '-quizFinalResult').style.display = 'none';
+            document.getElementById(lessonId + '-quizActiveArea').style.display = 'none';
+            document.getElementById(lessonId + '-quizSetupPanel').style.display = 'block';
+        }
+
+        function getDataByLessonId(lessonId) {
+            if (lessonId === 'l1') return magazine9WordsData;
+            if (lessonId === 'l2') return magazine10WordsData;
+            if (lessonId === 'l3') return magazine11WordsData;
+            if (lessonId === 'rev1') return magazine12WordsData;
+            return allData;
+        }
+
+        function startQuiz(lessonId) {
+            getAudioContext(); // 預先解鎖音效權限
+            document.getElementById(lessonId + '-quizSetupPanel').style.display = 'none';
+            document.getElementById(lessonId + '-quizActiveArea').style.display = 'block';
+
+            const sourceData = getDataByLessonId(lessonId);
+            const state = quizState[lessonId];
+            state.score = 0;
+            state.index = 0;
+            state.wrongItems = [];
+            
+            const sliceCount = (state.count === 'all') ? sourceData.length : Math.min(state.count, sourceData.length);
+            state.list = [...sourceData].sort(() => 0.5 - Math.random()).slice(0, sliceCount);
+
+            loadQuestion(lessonId);
+        }
+
+        function loadQuestion(lessonId) {
+            const state = quizState[lessonId];
+            state.isAnswered = false; // 重置答題鎖定狀態
+            const currentWord = state.list[state.index];
+            const sourceData = getDataByLessonId(lessonId);
+
+            const banner = document.getElementById(lessonId + '-quizBanner');
+            banner.style.display = 'none';
+            banner.className = 'result-banner';
+            banner.innerHTML = '';
+            document.getElementById(lessonId + '-quizNextBtn').style.display = 'none';
+
+            document.getElementById(lessonId + '-quizProgress').innerText = `進度：${state.index + 1} / ${state.list.length}`;
+            document.getElementById(lessonId + '-quizScore').innerText = `得分：${state.score} 分`;
+
+            const qText = document.getElementById(lessonId + '-questionText');
+            const ansArea = document.getElementById(lessonId + '-quizAnswersArea');
+            ansArea.innerHTML = '';
+
+            if (state.type === 'choice') {
+                // 英選中
+                qText.innerHTML = `請選出 "<span style="color:var(--primary);">${currentWord.vocab}</span>" 的正確意思：`;
+                
+                let options = [currentWord.definition];
+                const otherDefs = sourceData.filter(w => w.vocab !== currentWord.vocab).map(w => w.definition);
+                const shuffledOthers = otherDefs.sort(() => 0.5 - Math.random()).slice(0, 3);
+                options = options.concat(shuffledOthers).sort(() => 0.5 - Math.random());
+
+                const prefixLabels = ['(A) ', '(B) ', '(C) ', '(D) '];
+                options.forEach((opt, idx) => {
+                    const btn = document.createElement('button');
+                    btn.className = 'single-option-btn';
+                    btn.setAttribute('data-val', opt);
+                    btn.innerHTML = `<strong>${prefixLabels[idx]}</strong>${opt}`;
+                    btn.onclick = () => {
+                        if (state.isAnswered) return;
+                        checkChoiceAnswer(lessonId, btn, opt === currentWord.definition, currentWord, 'choice');
+                    };
+                    ansArea.appendChild(btn);
+                });
+            } else if (state.type === 'chineseToEnglish') {
+                // 中選英
+                qText.innerHTML = `請選出中文 "<span style="color:var(--primary);">${currentWord.definition}</span>" 的正確英文單字/片語：`;
+
+                let options = [currentWord.vocab];
+                const otherVocabs = sourceData.filter(w => w.vocab !== currentWord.vocab).map(w => w.vocab);
+                const shuffledOthers = otherVocabs.sort(() => 0.5 - Math.random()).slice(0, 3);
+                options = options.concat(shuffledOthers).sort(() => 0.5 - Math.random());
+
+                const prefixLabels = ['(A) ', '(B) ', '(C) ', '(D) '];
+                options.forEach((opt, idx) => {
+                    const btn = document.createElement('button');
+                    btn.className = 'single-option-btn';
+                    btn.setAttribute('data-val', opt);
+                    btn.innerHTML = `<strong>${prefixLabels[idx]}</strong>${opt}`;
+                    btn.onclick = () => {
+                        if (state.isAnswered) return;
+                        checkChoiceAnswer(lessonId, btn, opt === currentWord.vocab, currentWord, 'chineseToEnglish');
+                    };
+                    ansArea.appendChild(btn);
+                });
+            } else {
+                // 手動拼字
+                qText.innerHTML = `請根據中文意思，拼出正確的英文單字或片語：<br><span style="color:var(--primary); font-size:1.3rem;">"${currentWord.definition}"</span> <span style="font-size:0.9rem; color:var(--text-sub);">${currentWord.kk || ''}</span>`;
+
+                ansArea.innerHTML = `
+                    <div class="input-group">
+                        <input type="text" id="${lessonId}-spellUserInput" class="spell-input" placeholder="請輸入英文單字或片語..." autocomplete="off" autocapitalize="none" onkeydown="if(event.key === 'Enter') { event.preventDefault(); checkSpellAnswer('${lessonId}'); }">
+                        <button class="action-sub-btn" id="${lessonId}-spellSubmitBtn" onclick="checkSpellAnswer('${lessonId}')">送出</button>
+                    </div>
+                `;
+                document.getElementById(lessonId + '-spellUserInput').focus();
+            }
+        }
+
+        function checkChoiceAnswer(lessonId, selectedBtn, isCorrect, currentWord, mode) {
+            const state = quizState[lessonId];
+            if (state.isAnswered) return;
+            state.isAnswered = true;
+
+            const buttons = document.querySelectorAll('#' + lessonId + '-quizAnswersArea .single-option-btn');
+            buttons.forEach(btn => {
+                btn.disabled = true;
+                btn.classList.add('disabled-muted');
+            });
+
+            const banner = document.getElementById(lessonId + '-quizBanner');
+            let extText = currentWord.extension ? `<div class="banner-ext-info">💡 詳解與補充：<br>${currentWord.extension}</div>` : '';
+            const pointsPerQ = Math.round(100 / state.list.length);
+
+            const targetVal = (mode === 'choice') ? currentWord.definition : currentWord.vocab;
+
+            if (isCorrect) {
+                state.score += pointsPerQ;
+                selectedBtn.classList.remove('disabled-muted');
+                selectedBtn.classList.add('selected-correct');
+                banner.className = 'result-banner correct';
+                banner.innerHTML = `🎉 答對了！ ${extText}`;
+                playDingDongSound();
+            } else {
+                selectedBtn.classList.remove('disabled-muted');
+                selectedBtn.classList.add('selected-wrong');
+                buttons.forEach(btn => {
+                    if (btn.getAttribute('data-val') === targetVal) {
+                        btn.classList.remove('disabled-muted');
+                        btn.classList.add('selected-correct');
+                    }
+                });
+                banner.className = 'result-banner wrong';
+                banner.innerHTML = `✕ 答錯囉！正確答案是：<strong>${targetVal}</strong> ${extText}`;
+                playWrongSound();
+                
+                if (!state.wrongItems.some(item => item.vocab === currentWord.vocab)) {
+                    state.wrongItems.push(currentWord);
+                }
+            }
+
+            document.getElementById(lessonId + '-quizScore').innerText = `得分：${state.score} 分`;
+            showNextButton(lessonId);
+        }
+
+        function checkSpellAnswer(lessonId) {
+            const state = quizState[lessonId];
+            if (state.isAnswered) return;
+
+            const inputField = document.getElementById(lessonId + '-spellUserInput');
+            if (!inputField || inputField.disabled) return;
+
+            const userVal = inputField.value.trim().toLowerCase();
+            if (!userVal) {
+                inputField.focus();
+                return;
+            }
+
+            state.isAnswered = true;
+            inputField.disabled = true;
+            const submitBtn = document.getElementById(lessonId + '-spellSubmitBtn');
+            if (submitBtn) submitBtn.disabled = true;
+
+            const currentWord = state.list[state.index];
+            const correctVal = currentWord.vocab.toLowerCase();
+            const banner = document.getElementById(lessonId + '-quizBanner');
+            let extText = currentWord.extension ? `<div class="banner-ext-info">💡 詳解與補充：<br>${currentWord.extension}</div>` : '';
+            const pointsPerQ = Math.round(100 / state.list.length);
+            const isCorrect = (userVal === correctVal);
+
+            if (isCorrect) {
+                state.score += pointsPerQ;
+                inputField.classList.add('correct-input');
+                banner.className = 'result-banner correct';
+                banner.innerHTML = `🎉 拼寫正確！ ${extText}`;
+                playDingDongSound();
+            } else {
+                inputField.classList.add('wrong-input');
+                banner.className = 'result-banner wrong';
+                banner.innerHTML = `✕ 拼寫錯誤！正確答案是：<strong>${currentWord.vocab}</strong> ${extText}`;
+                playWrongSound();
+                
+                if (!state.wrongItems.some(item => item.vocab === currentWord.vocab)) {
+                    state.wrongItems.push(currentWord);
+                }
+            }
+
+            document.getElementById(lessonId + '-quizScore').innerText = `得分：${state.score} 分`;
+            showNextButton(lessonId);
+        }
+
+        function showNextButton(lessonId) {
+            const state = quizState[lessonId];
+            const nextBtn = document.getElementById(lessonId + '-quizNextBtn');
+            if (state.index < state.list.length - 1) {
+                nextBtn.innerText = '下一題 ➔';
+            } else {
+                nextBtn.innerText = '查看測驗結果與錯題整理 🏆';
+            }
+            nextBtn.style.display = 'block';
+            nextBtn.focus();
+        }
+
+        function nextQuestion(lessonId) {
+            const state = quizState[lessonId];
+            state.index++;
+            if (state.index < state.list.length) {
+                loadQuestion(lessonId);
+            } else {
+                document.getElementById(lessonId + '-quizActiveArea').style.display = 'none';
+                document.getElementById(lessonId + '-finalScoreDisplay').innerText = `${state.score} / 100`;
+                
+                const wrongContainer = document.getElementById(lessonId + '-wrongReviewContainer');
+                if (state.wrongItems.length > 0) {
+                    let html = `
+                        <div class="wrong-review-section">
+                            <div class="wrong-review-title">⚠ 本次測驗錯題複習 (${state.wrongItems.length} 題)</div>
+                    `;
+                    state.wrongItems.forEach(item => {
+                        html += `
+                            <div class="wrong-item-card">
+                                <strong>${item.vocab}</strong> <span style="font-size:0.85rem; color:#718096;">${item.kk || ''}</span><br>
+                                <span style="color:var(--text-main); font-weight:500;">意思：${item.definition}</span>
+                                ${item.extension ? `<div style="font-size:0.85rem; color:#718096; margin-top:4px;">${item.extension}</div>` : ''}
+                            </div>
+                        `;
+                    });
+                    html += `</div>`;
+                    wrongContainer.innerHTML = html;
+                } else {
+                    wrongContainer.innerHTML = `
+                        <div style="background:#f0fff4; border:1px solid #c6f6d5; color:#22543d; padding:15px; border-radius:10px; font-weight:bold; margin-top:15px;">
+                            🌟 太神啦！本次測驗全部答對，沒有錯題！
+                        </div>
+                    `;
+                }
+
+                document.getElementById(lessonId + '-quizFinalResult').style.display = 'block';
+                document.getElementById(lessonId + '-quizFinalResult').scrollIntoView({ behavior: 'smooth' });
+            }
+        }
+
+        // 頁面初始化載入所有課次（包含總測驗資料）的單字列表
+        window.onload = () => {
+            renderWords('l1', magazine9WordsData);
+            renderWords('l2', magazine10WordsData);
+            renderWords('l3', magazine11WordsData);
+            renderWords('rev1', magazine12WordsData);
+            renderWords('all', allData);
+        };
+    </script>
+</body>
+</html>
